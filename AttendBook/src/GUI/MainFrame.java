@@ -20,11 +20,11 @@ public class MainFrame extends JFrame {
 
 	static Dimension[] scale = { new Dimension(960, 640), new Dimension(1280, 960), new Dimension(1280, 720), new Dimension(1920, 1080) };
 
-	Panel title = new Panel(Panel.type.BACK);
-	Panel menubar = new Panel(Panel.type.PRIME);
+	Panel title = new Panel(Panel.type.PRIME);
+	Panel menubar = new Panel(Panel.type.SECOND);
 	Panel content = new Panel(Panel.type.BACK);
 
-	Label titlename = new Label(Label.type.BACK, 21);
+	Label titlename = new Label(Label.type.TITLE, 21);
 
 	static int state = 0;
 
@@ -39,6 +39,7 @@ public class MainFrame extends JFrame {
 	public void Showing() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//setUndecorated(true);
+		setTitle("출석 프로그램");
 		setSize(scale[2]);
 		setVisible(true);
 	}
@@ -46,43 +47,44 @@ public class MainFrame extends JFrame {
 	public void setBorder() {
 		this.setLayout(new BorderLayout());
 
+		// 상단 타이틀 바 만들기
+		this.add(title, BorderLayout.NORTH);
+		setTitle();
+		
 		// 좌측 메뉴 바 만들기
 		this.add(menubar, BorderLayout.WEST);
-		menubar.setPreferredSize(new Dimension(180, 0));
 		setMenubar();
 		
 		// 가운데 컨텐츠 공간만들기
 		this.add(content, BorderLayout.CENTER);
-		content.setLayout(new BorderLayout());
 		setContent();
 
-		// 상단 타이틀 바 만들기
-		this.add(title, BorderLayout.NORTH);
+	}
+	
+	public void setTitle() {
 		title.setPreferredSize(new Dimension(0, 40));
 		title.setLayout(new BorderLayout());
 		
 		Panel none = new Panel(Panel.type.PRIME);
 		none.setPreferredSize(new Dimension(180,0));
-		title.add(none, BorderLayout.WEST);
+		//title.add(none, BorderLayout.WEST);
 		
 		title.add(titlename, BorderLayout.CENTER);
 		titlename.setText("출석 관리 프로그램");
 		titlename.setHorizontalAlignment(JLabel.CENTER);
 	}
-
+	
 	public void setMenubar() {
+		menubar.setPreferredSize(new Dimension(180, 60));
 		menubar.setLayout(new GridLayout(8, 1));
 
-		menubar.add(new Panel(Panel.type.PRIME));
-		//menubar.add(new Panel(Panel.type.SECOND));
-		// menubar.add(new Panel(Panel.type.BACK));
 		for (MenuButton mb : menu) {
 			menubar.add(mb);
 		}
 	}
 
 	public void setContent() {
-
+		content.setLayout(new BorderLayout());
 	}
 
 	public static void main(String[] args) {
@@ -97,7 +99,7 @@ class MenuButton extends JButton {
 	boolean isClicked = false;
 
 	public MenuButton(String n) {
-		this.setBackground(Styles.PRIMARY);
+		this.setBackground(Styles.SECONDARY);
 		this.setForeground(Styles.PRIMEFONT);
 		this.setBorder(new EmptyBorder(0, 0, 0, 0));
 		// this.setFont(new Font(Styles.FONTNAME, Font.BOLD, 18));
