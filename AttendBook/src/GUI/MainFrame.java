@@ -1,16 +1,17 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import GUI.Contents.Content;
 import GUI.Setting.Label;
 import GUI.Setting.Panel;
 import GUI.Setting.Styles;
@@ -18,11 +19,14 @@ import GUI.Setting.Styles;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	static Dimension[] scale = { new Dimension(960, 640), new Dimension(1280, 960), new Dimension(1280, 720), new Dimension(1920, 1080) };
+	static Dimension[] scale = { new Dimension(960, 640), new Dimension(1280, 960), new Dimension(1280, 720),
+			new Dimension(1920, 1080) };
 
-	Panel title = new Panel(Panel.type.PRIME);
-	Panel menubar = new Panel(Panel.type.SECOND);
-	Panel content = new Panel(Panel.type.BACK);
+	Panel title = new Panel(Panel.TITLE);
+	Panel menubar = new Panel(Panel.MENU);
+	Panel content = new Panel(Panel.BACK);
+
+	Content c = new Content();
 
 	Label titlename = new Label(Label.type.TITLE, 21);
 
@@ -32,13 +36,12 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		setBorder();
-
 		Showing();
 	}
 
 	public void Showing() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//setUndecorated(true);
+		// setUndecorated(true);
 		setTitle("출석 프로그램");
 		setSize(scale[2]);
 		setVisible(true);
@@ -50,45 +53,57 @@ public class MainFrame extends JFrame {
 		// 상단 타이틀 바 만들기
 		this.add(title, BorderLayout.NORTH);
 		setTitle();
-		
+
 		// 좌측 메뉴 바 만들기
 		this.add(menubar, BorderLayout.WEST);
 		setMenubar();
-		
+
 		// 가운데 컨텐츠 공간만들기
 		this.add(content, BorderLayout.CENTER);
 		setContent();
 
 	}
-	
+
 	public void setTitle() {
 		title.setPreferredSize(new Dimension(0, 40));
 		title.setLayout(new BorderLayout());
-		
-		Panel none = new Panel(Panel.type.PRIME);
-		none.setPreferredSize(new Dimension(180,0));
-		//title.add(none, BorderLayout.WEST);
-		
+
+		// Panel none = new Panel(Panel.type.TITLE);
+		// none.setPreferredSize(new Dimension(180,0));
+		// title.add(none, BorderLayout.WEST);
+
 		title.add(titlename, BorderLayout.CENTER);
 		titlename.setText("출석 관리 프로그램");
 		titlename.setHorizontalAlignment(JLabel.CENTER);
 	}
-	
+
 	public void setMenubar() {
 		menubar.setPreferredSize(new Dimension(180, 60));
 		menubar.setLayout(new GridLayout(8, 1));
 
+		ActionListener al = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (MenuButton mb : menu) {
+					mb.change(false);
+				}
+				MenuButton mb = (MenuButton) e.getSource();
+				mb.change(true);
+			}
+		};
+
 		for (MenuButton mb : menu) {
 			menubar.add(mb);
+			mb.addActionListener(al);
 		}
 	}
 
 	public void setContent() {
 		content.setLayout(new BorderLayout());
+		content.add(c);
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		new MainFrame();
 	}
 
@@ -96,25 +111,25 @@ public class MainFrame extends JFrame {
 
 class MenuButton extends JButton {
 	private static final long serialVersionUID = -5569540577820539119L;
-	boolean isClicked = false;
 
 	public MenuButton(String n) {
-		this.setBackground(Styles.SECONDARY);
+		this.setBackground(Panel.MENU);
 		this.setForeground(Styles.PRIMEFONT);
 		this.setBorder(new EmptyBorder(0, 0, 0, 0));
 		// this.setFont(new Font(Styles.FONTNAME, Font.BOLD, 18));
 		this.setText(n);
 	}
 
-	public void change() {
-		if (!isClicked) { // 안눌렸다가 -> 눌림
-			this.setBackground(Styles.BACKGROUND);
+	public void change(boolean isClicked) {
+		if (isClicked) {
+			// 눌렸을 때
+			this.setBackground(Styles.SHADOW);
+			System.out.print(this.getBackground());
 			this.setForeground(Styles.BACKFONT);
-			isClicked = true;
-		} else { // 눌렸다가 -> 안눌림
-			this.setBackground(Styles.SECONDARY);
+		} else {
+			// 안눌렸을 때
+			this.setBackground(Panel.MENU);
 			this.setForeground(Styles.PRIMEFONT);
-			isClicked = false;
 		}
 	}
 }
