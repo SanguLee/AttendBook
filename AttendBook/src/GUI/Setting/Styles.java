@@ -20,8 +20,8 @@ public class Styles {
 	public final static Color PRIMARY = palette[5];
 	public final static Color SECONDARY = palette[4];
 	
-	public final static Color PRIMEFONT = palette[4];
-	public final static Color BACKFONT = palette[0];
+	public final static Color PRIMEFONT = palette[0];
+	public final static Color BACKFONT = palette[4];
 	
 	public final static Color INVISIBLE = new Color(0,0,0,0);
 	
