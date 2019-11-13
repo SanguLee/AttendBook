@@ -1,28 +1,22 @@
 package GUI.Setting;
 
+import java.awt.Color;
+
 import javax.swing.JPanel;
 
-public class Panel extends JPanel{
+public class Panel extends JPanel {
 	private static final long serialVersionUID = -766801029714990939L;
-	
-	public enum type{
-		PRIME, SECOND, BACK, SHADOW, INVIS
-	};
+
+	public static final Color TITLE = Styles.PRIMARY;
+	public static final Color MENU = Styles.SECONDARY;
+	public static final Color BACK = Styles.SHADOW;
+	public static final Color WHITE = Styles.BACKGROUND;
 	
 	public Panel() {
 		this.setBackground(Styles.INVISIBLE);
 	}
-	public Panel(type t) {
-		setType(t);
-	}
-	
-	private void setType(type t) {
-		switch (t) {
-		case PRIME : this.setBackground(Styles.PRIMARY); break;
-		case SECOND : this.setBackground(Styles.SECONDARY); break;
-		case BACK : this.setBackground(Styles.BACKGROUND); break;
-		case SHADOW : this.setBackground(Styles.SHADOW); break;
-		case INVIS : this.setBackground(Styles.INVISIBLE); break;
-	}
+
+	public Panel(Color c) {
+		this.setBackground(c);
 	}
 }
