@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Styles {
 	final static Color[] palette = {
 			new Color(255, 255, 255),
-			new Color(242, 245, 252),
+			new Color(240, 247, 247),
 			
 			new Color(13, 255, 237),
 			new Color(12, 189, 232),
@@ -17,6 +17,7 @@ public class Styles {
 	public final static Color BACKGROUND = palette[0];
 	public final static Color SHADOW = palette[1];
 	
+	
 	public final static Color PRIMARY = palette[5];
 	public final static Color SECONDARY = palette[4];
 	
@@ -24,6 +25,5 @@ public class Styles {
 	public final static Color BACKFONT = palette[4];
 	
 	public final static Color INVISIBLE = new Color(0,0,0,0);
-	
-	public final static String FONTNAME = " Noto Sans CJK KR";
+
 }
