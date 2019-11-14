@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
-import GUI.Contents.Content;
+import GUI.Contents.AttendPanel;
 import GUI.Setting.Label;
 import GUI.Setting.Panel;
 import GUI.Setting.Styles;
@@ -26,9 +26,7 @@ public class MainFrame extends JFrame {
 	Panel menubar = new Panel(Panel.MENU);
 	Panel content = new Panel(Panel.BACK);
 
-	Content c = new Content();
-
-	Label titlename = new Label(Label.type.TITLE, 21);
+	Label titlename = new Label(Label.type.TITLE, "출석 관리 프로그램");
 
 	static int state = 0;
 
@@ -73,7 +71,6 @@ public class MainFrame extends JFrame {
 		// title.add(none, BorderLayout.WEST);
 
 		title.add(titlename, BorderLayout.CENTER);
-		titlename.setText("출석 관리 프로그램");
 		titlename.setHorizontalAlignment(JLabel.CENTER);
 	}
 
@@ -86,9 +83,23 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				for (MenuButton mb : menu) {
 					mb.change(false);
+					content.removeAll();
 				}
 				MenuButton mb = (MenuButton) e.getSource();
 				mb.change(true);
+
+				switch (mb.getText()) {
+				case "출석 관리":
+					content.add(new AttendPanel());
+					break;
+				case "인원 관리":
+					break;
+				case "통계 자료":
+					break;
+				}
+				
+				repaint();
+				revalidate();
 			}
 		};
 
@@ -100,7 +111,7 @@ public class MainFrame extends JFrame {
 
 	public void setContent() {
 		content.setLayout(new BorderLayout());
-		content.add(c);
+		//content.add(c);
 	}
 
 	public static void main(String[] args) {
@@ -124,7 +135,6 @@ class MenuButton extends JButton {
 		if (isClicked) {
 			// 눌렸을 때
 			this.setBackground(Styles.SHADOW);
-			System.out.print(this.getBackground());
 			this.setForeground(Styles.BACKFONT);
 		} else {
 			// 안눌렸을 때
