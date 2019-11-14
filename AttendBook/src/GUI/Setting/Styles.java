@@ -23,6 +23,7 @@ public class Styles {
 	
 	public final static Color PRIMEFONT = palette[0];
 	public final static Color BACKFONT = palette[4];
+	public final static Color NORMALFONT = palette[6];
 	
 	public final static Color INVISIBLE = new Color(0,0,0,0);
 
