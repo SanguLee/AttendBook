@@ -1,5 +1,6 @@
 package GUI.Setting;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JPanel;
@@ -14,9 +15,11 @@ public class Panel extends JPanel {
 	
 	public Panel() {
 		this.setBackground(Styles.INVISIBLE);
+		this.setLayout(new BorderLayout());
 	}
 
 	public Panel(Color c) {
 		this.setBackground(c);
+		this.setLayout(new BorderLayout());
 	}
 }
