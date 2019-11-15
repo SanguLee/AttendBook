@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
 	Panel menubar = new Panel(Panel.MENU);
 	Panel content = new Panel(Panel.BACK);
 
-	Label titlename = new Label(Label.type.TITLE, "출석 관리 프로그램");
+	Label titlename = new Label(Label.PRIMEFONT, Label.BIG, "출석 관리 프로그램");
 
 	static int state = 0;
 
@@ -110,7 +110,6 @@ public class MainFrame extends JFrame {
 	}
 
 	public void setContent() {
-		content.setLayout(new BorderLayout());
 		//content.add(c);
 	}
 
@@ -125,7 +124,7 @@ class MenuButton extends JButton {
 
 	public MenuButton(String n) {
 		this.setBackground(Panel.MENU);
-		this.setForeground(Styles.PRIMEFONT);
+		this.setForeground(Label.PRIMEFONT);
 		this.setBorder(new EmptyBorder(0, 0, 0, 0));
 		// this.setFont(new Font(Styles.FONTNAME, Font.BOLD, 18));
 		this.setText(n);
@@ -135,11 +134,11 @@ class MenuButton extends JButton {
 		if (isClicked) {
 			// 눌렸을 때
 			this.setBackground(Styles.SHADOW);
-			this.setForeground(Styles.BACKFONT);
+			this.setForeground(Label.BACKFONT);
 		} else {
 			// 안눌렸을 때
 			this.setBackground(Panel.MENU);
-			this.setForeground(Styles.PRIMEFONT);
+			this.setForeground(Label.PRIMEFONT);
 		}
 	}
 }
