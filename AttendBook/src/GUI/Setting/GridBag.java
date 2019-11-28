@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.border.EmptyBorder;
 
 public 
 class GridBag extends Panel{
@@ -12,7 +13,7 @@ class GridBag extends Panel{
 	
 	GridBagLayout grid = new GridBagLayout();
 	GridBagConstraints con = new GridBagConstraints();
-	int b = 0;
+	int b;
 	
 	public GridBag(int border) {
 		this.b = border;
@@ -23,7 +24,7 @@ class GridBag extends Panel{
 	}
 	
 	public void addGrid(JComponent c, int x, int y, int w, int h) {
-		c.setBorder(BorderFactory.createEmptyBorder(b, b, b, b));
+		c.setBorder(new EmptyBorder(b, b, b, b));
 		con.gridx = y;
 		con.gridy = x;
 		con.gridwidth = w;

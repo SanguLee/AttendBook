@@ -22,7 +22,6 @@ public class Label extends JLabel {
 		this.setForeground(color);
 
 		// 글자 크기
-
 		this.setFont(new Font(FONTNAME, Font.PLAIN, size));
 
 		// 글자 내부 내용
