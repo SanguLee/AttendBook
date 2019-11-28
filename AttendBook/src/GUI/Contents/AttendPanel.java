@@ -18,7 +18,6 @@ public class AttendPanel extends Content {
 
 	@Override
 	void setHead() {
-		// TODO Auto-generated method stub
 		head.add(new JButton("Á¦ ¤Ñ ¸ñ"), BorderLayout.CENTER);
 	}
 
