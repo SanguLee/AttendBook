@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import GUI.Setting.GridBag;
 import GUI.Setting.Label;
@@ -24,7 +25,7 @@ public class AttendPanel extends Content {
 	@Override
 	void setBody() {
 		// TODO Auto-generated method stub
-		GridBag grid = new GridBag(6);
+		GridBag grid = new GridBag(10);
 		JButton[] b = new JButton[7];
 
 		for (int i = 0; i < 7; i++) {
@@ -52,59 +53,64 @@ public class AttendPanel extends Content {
 class Attend extends Panel {
 	private static final long serialVersionUID = 2022117008532120900L;
 
-	Panel Head;
-	Panel Body;
-
-	Panel[] Bodies = new Panel[2];
-
-	public static final String[] title = { "1학년", "2학년", "3학년", "새신자", "교사" };
-	public static final String[] sex = { "남자", "여자" };
-
-	Panel[] cols = new Panel[maxcol];
-	Panel[][] rows = new Panel[maxcol][maxrow];
-
 	static final int maxcol = 2;
 	static final int maxrow = 8;
 
+	public static final String[] titles = { "1학년", "2학년", "3학년", "새신자", "교사" };
+	public static final String[] sexs = { "남자", "여자" };
+
+	GridBag head;
+	Panel title;
+	Panel[] sex = new Panel[maxcol];
+	Panel body;
+	Panel[][] field = new Panel[maxcol][maxrow];
+
 	public Attend(int t, String[] names) {
+		int b = 1;
+		LineBorder border = new LineBorder(Panel.MENU, b);
+		this.setBorder(border);
 
 		// 헤드 ( 타이틀 ) 설정
-		Head = new Panel(Panel.TITLE);
-		this.add(Head, BorderLayout.NORTH);
+		head = new GridBag(b);
 
-		Head.add(new Label(Label.PRIMEFONT, Label.SMALL, title[t]));
+		title = new Panel(Panel.TITLE);
+		title.add(new Label(Label.PRIMEFONT, Label.SMALL, titles[t]));
+		title.setBorder(border);
+		head.addGrid(title, 0, 0, 2, 1);
 
-		// 바디 ( 필드값) 설정
-		Body = new Panel();
-		Body.setLayout(new GridLayout(1, 2));
-		this.add(Body, BorderLayout.CENTER);
-
-		// 바디즈 ( 필드 2개 ) 설정
 		for (int i = 0; i < maxcol; i++) {
-			Bodies[i] = new Panel();
-			Bodies[i].setLayout(new GridLayout(maxrow + 1, 1));
-			Body.add(Bodies[i]);
+			sex[i] = new Panel(Panel.TITLE);
+			sex[i].add(new Label(Label.PRIMEFONT, Label.SMALL, sexs[i]));
+			sex[i].setBorder(border);
+			head.addGrid(sex[i], 1, i, 1, 1);
+		}
 
-			// 컬럼 ( 남녀 ) 설정
-			cols[i] = new Panel(Panel.TITLE);
-			cols[i].add(new Label(Label.PRIMEFONT, Label.SMALL, sex[i]));
+		this.add(head, BorderLayout.NORTH);
 
-			Bodies[i].add(cols[i]);
+		// 바디 ( 필드값 ) 설정
+		body = new Panel();
+		body.setLayout(new GridLayout(maxrow, maxcol));
 
-			// 로우 ( 필드 ) 설정
+		for (int i = 0; i < maxcol; i++) {
 			for (int j = 0; j < maxrow; j++) {
-				rows[i][j] = new Panel(Panel.WHITE);
-				rows[i][j].setBorder(new EmptyBorder(3, 3, 3, 3));
+				Panel tmp;
+				// row 배열 설정
+				tmp = new Panel(Panel.WHITE);
 
-				if (names!=null &&  j < names.length) {
-					rows[i][j].add(new Label(Label.NORMALFONT, Label.SMALL, names[j]), BorderLayout.CENTER);
-					rows[i][j].add(new JCheckBox(), BorderLayout.EAST);
-				} else
-					rows[i][j].add(new Label(Label.NORMALFONT, Label.SMALL, "\t"), BorderLayout.CENTER);
+				if (names != null && j < names.length)
+					tmp.add(new Label(Label.NORMALFONT, Label.SMALL, names[j]), BorderLayout.CENTER);
 
-				Bodies[i].add(rows[i][j]);
+				else
+					tmp.add(new Label(Label.NORMALFONT, Label.SMALL, "\t"), BorderLayout.CENTER);
+
+				tmp.add(new JCheckBox(), BorderLayout.EAST);
+
+				tmp.setBorder(border);
+				body.add(tmp);
 			}
 		}
+		body.setBorder(border);
+		this.add(body, BorderLayout.CENTER);
 	}
 }
 
