@@ -60,7 +60,6 @@ class Attend extends Panel {
 	public static final String[] sexs = { "남자", "여자" };
 
 	GridBag head;
-	// 헤드 세팅
 	Panel title;
 	Panel[] sex = new Panel[maxcol];
 	Panel body;
